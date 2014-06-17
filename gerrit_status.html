@@ -1,0 +1,58 @@
+<head>
+  <title>gerrit_status</title>
+</head>
+
+<body>
+  {{> main}}
+</body>
+
+<template name="main">
+  {{#if haveOpenChanges}}
+    <div class="changeList">
+    <div class="changesTitle">Your changes</div>
+    {{#each yourChanges}}
+      {{> change}}
+    {{/each}}
+    </div>
+  {{/if}}
+  {{#if haveOpenReviews}}
+  <div class="reviewList">
+  <div class="reviewTitle">Suggested Reviews</div>
+  {{#each yourReviews}}
+    {{> reviewSuggestion}}
+  {{/each}}
+  </div>
+  {{/if}}
+
+<div class="dropdown dropup">
+  <button class="btn dropdown-toggle sr-only user-selection" type="button" id="dropdownMenu1" data-toggle="dropdown">
+{{currentUser}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right user-dropdown" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Anders.Arnholm@delphi.com</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">carl.landstrom@mecel.se</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">christopher.olofsson@delphi.com</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">erik.gyllensten@delphi.com</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">fredrik.bjorndahl@mecel.se</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">henrik.roslund@delphi.com</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">peter.wiktorsson@delphi.com</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">torbjorn.mattsson@mecel.se</a></li>
+  </ul>
+</div>
+</template>
+
+<template name="change">
+<div class="change {{issueStatus}}" id="{{ _id }}">
+  <div class="change_subject"><a href="{{link}}" class="changeLink" target="popup">{{subject}}</a></div>
+  <div class="change_changelog">{{changelog}}</div>
+  <div class="change_codereview">{{codereview}}</div>
+  <div class="change_scrumcard">{{scrumcard}}</div>
+  <div class="change_verified">{{verified}}</div>
+</div>
+</template>
+<template name="reviewSuggestion">
+<div class="reviewSuggestion {{issueStatus}}" id="{{ _id }}">
+  <span class="reviewSubject"><a class="reviewLink" href="{{link}}" target="popup">{{subject}}</a></span>
+</div>
+</template>
